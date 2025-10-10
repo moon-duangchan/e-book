@@ -13,7 +13,7 @@ Simple e‑book website.
 <!-- | **Payments**  | Omise (PromptPay, Cards)                                     | -->
 | **DevOps**    | Docker Compose + Traefik + Prometheus (optional: Grafana)    |
 
-
+Try.
 Env example
 ```env
 
