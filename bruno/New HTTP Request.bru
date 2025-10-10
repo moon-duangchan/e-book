@@ -1,0 +1,20 @@
+meta {
+  name: New HTTP Request
+  type: http
+  seq: 1
+}
+
+get {
+  url: http://localhost:3001/todos
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title": "do something else",
+    "compleled": false
+  }
+}
+
+
