@@ -3,12 +3,11 @@ package main
 import (
     "Backend/models"
     "Backend/database"
-    "Backend/controller"
-    "Backend/auth"
     "github.com/gofiber/fiber/v2"
     "github.com/joho/godotenv"
     "gorm.io/driver/postgres"
     "gorm.io/gorm"
+    "Backend/route"
     "log"
     "os"
     "fmt"
@@ -43,26 +42,10 @@ func initDatabase() {
     fmt.Println(" Database migrated successfully!")
 }
 
-func setupRoutes(app *fiber.App) {
-    // Protect all /todos* routes with JWT auth
-    app.Use("/todos", auth.RequireAuth())
-
-    // Todo routes
-    app.Get("/todos", controller.GetTodos)
-    app.Get("/todos/:id", controller.GetTodoByID)
-    app.Post("/todos", controller.CreateTodo)
-    app.Put("/todos/:id", controller.UpdateTodo)
-    app.Delete("/todos/:id", controller.DeleteTodo)
-
-    // Auth routes
-    app.Post("/auth/register", controller.Register)
-    app.Get("/auth/verify", controller.VerifyEmail)
-    app.Post("/auth/login", controller.Login)
-}
-
 
 
 func main() {
+    
     err := godotenv.Load()
     if err != nil {
         log.Fatal("Error loading .env file")
@@ -71,7 +54,7 @@ func main() {
     initDatabase()
 
     app := fiber.New()
-    setupRoutes(app)
+    route.SetupRoutes(app)
 
     port := os.Getenv("PORT")
     if port == "" {
